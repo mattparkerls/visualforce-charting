@@ -7,10 +7,8 @@
              <div align="center"><h1>You do not have any Opportunities for this Account</h1></div>            
     </apex:pageBlock>
 
-	<apex:pageBlockSection title="Account Dashboard" rendered="{!render}">
-        
+	<apex:pageBlockSection title="Account Dashboard" rendered="{!render}">       
       	<table>
-
 
 <!--  LINE CHART -->
         <td align="left">
@@ -53,6 +51,19 @@
 	 </tr>
 	 </table>
 	 </td>
+	 
+<!-- Gauge Chart -->
+	<td align="left">
+        <table width="10" align="left">
+			<tr><td align="right"><apex:chart name="gaugeChart" height="200" width="350" animate="true" data="{!data}">
+                <apex:axis type="Gauge" position="gauge" title="Revenue to Date" gridFill="false" minimum="0" maximum="20000000" steps="10"/>
+                <apex:gaugeSeries dataField="size" donut="50" colorSet="#5378c9,#ddd" />
+            </apex:chart>
+	 </td>
+	 </tr>
+	 </table>
+	 </td>
+	 
 
      
      </table>
