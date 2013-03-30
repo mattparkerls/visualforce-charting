@@ -1,0 +1,73 @@
+<apex:page standardController="Account" extensions="AccountVFCharting" showHeader="false" tabStyle="Account">
+
+<html>
+
+<apex:pageBlock >
+    <apex:pageBlock rendered="{!render == false}">
+             <div align="center"><h1>You do not have any Opportunities for this Account</h1></div>            
+    </apex:pageBlock>
+
+	<apex:pageBlockSection title="Account Dashboard" rendered="{!render}">       
+      	<table>
+
+<!--  LINE CHART -->
+        <td align="left">
+        <table width="10" align="left">
+        <tr><td align="right"><apex:chart width="400" height="275" data="{!LineData}">
+            <apex:axis type="Numeric" position="left" minimum="0"  maximum="10" fields="numOppsClosedWon"
+                title="Deals" grid="true"/>
+            <apex:axis type="Numeric" position="right" minimum="0" maximum="10000000" fields="monthlyRevenue"
+                title="Revenue (US$)"/>
+            <apex:axis type="Category" position="bottom" fields="theMonth"
+                title="2013">
+            </apex:axis>
+            <apex:barSeries title="Monthly Sales" orientation="vertical"
+                axis="right" xField="theMonth" yField="monthlyRevenue" stacked="true"/>
+            <apex:lineSeries title="Closed-Won"
+                axis="left" xField="theMonth" yField="numOppsClosedWon"
+                markerType="circle" markerSize="4" markerFill="#00FF00"/>
+        </apex:chart>
+        </td></tr>
+        
+        </table>
+        </td>
+        
+<!-- Stacked Bar Chart -->
+	<td align="left">
+        <table width="10" align="left">
+        <tr><td align="right"><apex:chart height="240px" width="600" data="{!barSeriesData}" animate="true"> 
+		<apex:axis type="Category" position="bottom" fields="Opps"> 
+		<apex:chartLabel orientation="vertical"/> </apex:axis> 
+		<apex:axis type="Numeric" position="left" steps="5" fields="amountRev,claimRev,approvedRev,funds" title="Opp Revenue"/> 
+
+		<apex:barSeries colorsProgressWithinSeries="false" tips="true" gutter="75" title="New,Submitted for Approval,Rejected,Closed Won"
+		 colorSet="#5CB52F,#F1D867,#C0504D,#f2f3f4" axis="left" orientation="vertical" xField="Opps" yField="amountRev,claimRev,approvedRev,funds" stacked="true">
+		 <apex:chartTips valueField="amountRev,claimRev,approvedRev,funds" height="50" width="120"/> 
+		 </apex:barSeries> 
+		 
+		 <apex:legend position="bottom"/> 
+	 </apex:chart>
+	 </td>
+	 </tr>
+	 </table>
+	 </td>
+	 
+<!-- Gauge Chart -->
+	<td align="left">
+        <table width="10" align="left">
+			<tr><td align="right"><apex:chart name="gaugeChart" height="200" width="350" animate="true" data="{!data}">
+                <apex:axis type="Gauge" position="gauge" title="Revenue to Date" gridFill="false" minimum="0" maximum="20000000" steps="10"/>
+                <apex:gaugeSeries dataField="size" donut="50" colorSet="#5378c9,#ddd" />
+            </apex:chart>
+	 </td>
+	 </tr>
+	 </table>
+	 </td>
+	 
+
+     
+     </table>
+     </apex:pageBlockSection>
+     </apex:pageBlock>
+</html>
+</apex:page>
